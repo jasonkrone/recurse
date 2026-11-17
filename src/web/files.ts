@@ -872,14 +872,14 @@ export function registerFileRoutes(
     "/api/conversations/{cid}/attachments/{attachment_id}/page",
     async (ex) => {
       // Invariant: Only .html/.htm files render, always under the Artifact
-      // sandbox CSP: scripts run in an opaque origin without network access.
+      // sandbox CSP: an opaque origin with no fetches or external resources.
       const opened = await download(ex);
       if (!HTML_NAME_RE.test(String(opened.manifest.name))) {
         await opened.blob.close().catch(() => {});
         throw new HttpError(404, "page not available");
       }
       return rangedResponse(ex.request, await servedBody(opened), {
-        ...PREVIEW_HEADERS,
+        ...ARTIFACT_SAFE_HEADERS,
         ...HTML_PAGE_HEADERS,
         "content-length": String(opened.size),
       });

@@ -1193,7 +1193,7 @@ export const tests: BrowserTest[] = [
           expect(
             errors.filter(
               (error) =>
-                !/Content Security Policy|Blocked a frame with origin "null"/.test(
+                !/explorer-html-probe|frame-src 'none'|Blocked a frame with origin "null"/.test(
                   error,
                 ),
             ),

@@ -35,8 +35,9 @@ Markdown siblings opened from Artifacts use the same reading padding as publishe
 Markdown files.
 Published `.html`/`.htm` files open as a [live page](../html-page.ts): the
 server's `/page` route serves the bytes under the Artifact sandbox CSP, so the
-page's own styles and inline scripts run in an opaque origin without network
-access. External resources (CDN scripts, remote images) stay blocked.
+page's own styles and inline scripts run in an opaque origin without fetches.
+External resources (CDN scripts, remote images) stay blocked; as with Artifacts,
+the page can still navigate its own frame.
 Modified clicks and unsupported types retain browser navigation. Inline image enlargement
 retains its dialog on both layouts. Single-key shortcuts close image dialogs
 before acting; `i` focuses the composer. Left/Right still step images. The

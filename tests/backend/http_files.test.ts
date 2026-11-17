@@ -558,6 +558,25 @@ describe("owner scoping", () => {
       "default-src 'none'; style-src 'unsafe-inline';",
     );
     expect(svg.headers["content-security-policy"]).toEndWith("; sandbox");
+    const deck = (await upload("deck.html", "<h1>Deck</h1>")).replace(
+      /\/preview$/,
+      "/page",
+    );
+    const deckPage = await get(deck);
+    expect(deckPage.status).toBe(200);
+    expect(deckPage.headers["content-type"]).toBe("text/html; charset=utf-8");
+    expect(deckPage.headers["content-disposition"]).toBe("inline");
+    expect(deckPage.headers["content-security-policy"]).toBe(
+      ARTIFACT_ACTIVE_CSP,
+    );
+    expect(deckPage.headers["cache-control"]).toBe("private, no-store");
+    expect((await get(deck.replace("/owner-b/", "/owner-a/"))).status).toBe(
+      404,
+    );
+    expect(
+      (await get((await upload("x.svg", "<svg/>")).replace(/preview$/, "page")))
+        .status,
+    ).toBe(404);
     const clip = await upload("clip.mp4", "0123456789");
     const raw = await exchange(
       app.running.port,

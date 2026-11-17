@@ -670,9 +670,8 @@ export const tests: BrowserTest[] = [
         expect(await page.evaluate("window.__slidesRan")).toBeUndefined();
         expect(remote).toEqual([]);
         expect(blocked).toEqual(["https://example.invalid/probe.png"]);
-        expect(errors.length).toBeGreaterThan(0);
         expect(
-          errors.filter((error) => !error.includes("Content Security Policy")),
+          errors.filter((error) => !error.includes("https://example.invalid/")),
         ).toEqual([]);
       } finally {
         await context.close();

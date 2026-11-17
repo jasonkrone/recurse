@@ -808,7 +808,7 @@ function preview(view: View): TemplateResult {
       ? html`<div class="report-comments explorer-source-only"></div>
           <div class="report-bar explorer-source-only"></div>`
       : nothing}
-    ${view.htmlPreview && !view.editing
+    ${view.htmlPreview
       ? htmlPage(endpoint(view, "/page", { path: filePath(view) }), view.file!)
       : nothing}`;
 }

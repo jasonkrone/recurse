@@ -1,6 +1,7 @@
 // Live HTML file view shared by Files and Explorer. The server serves the page
 // with the Artifact sandbox CSP; this iframe's sandbox adds an opaque origin,
-// so the page's own styles and scripts run without session or network access.
+// so its styles and scripts run without session access, fetches or external
+// resources. Like Artifacts, the page can still navigate its own frame.
 import { html, type TemplateResult } from "lit";
 
 /** Names of files that open as a live page. */
