@@ -607,7 +607,7 @@ export const tests: BrowserTest[] = [
       await context.close();
     }
   },
-  // Feature: #PR_NUMBER a published HTML file runs live in the offline Artifact sandbox.
+  // Feature: #1 published HTML runs live in the offline Artifact sandbox.
   async function test_published_html_runs_as_a_live_page(browser, base) {
     const { demo } = (await postFixture(base, "seed-published-html")) as {
       demo: string;
